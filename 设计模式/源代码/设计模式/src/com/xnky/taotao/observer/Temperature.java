@@ -1,0 +1,18 @@
+package com.xnky.taotao.observer;
+
+import java.util.Observable;
+
+public class Temperature extends Observable{
+	private String  data;
+      
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		setChanged();
+		this.data = data;
+		notifyObservers(data);
+	}
+
+	}
