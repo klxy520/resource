@@ -14,8 +14,29 @@ public class ListTest {
         //a.通过无参构造的话，初始数组容量为0 当使用add方法添加一个元素时，容量会被扩成10。
         //使用懒加载, 对于jdk1.6来说这算是一个优化，如果实例化后没有添加元素，容量是0，节约空间，否则为10
         List<String> list1=new ArrayList<>();
-        //b.在ArrayList底层构造一个初始容量为20的数组
-        list1= new ArrayList<>(20);
+        /**b.在ArrayList底层构造一个初始容量为20的数组
+         * 在底层源码1.6和1.7中， 当length<0时，会抛出IllegalArgumentException异常。
+         *当length>0时 会初始化一个容量为length的数组
+         * public ArrayList(int initialCapacity) {
+         * super();
+         * if (initialCapacity < 0)
+         * throw new IllegalArgumentException("Illegal Capacity: "+ initialCapacity);
+         * this.elementData = new Object[initialCapacity];
+         * }
+         * 在底层源码1.8中，对1.6和1.7做了优化 新增了一个当length=0时，也是赋值为空数组，但是重用了常量对象
+         * public ArrayList(int initialCapacity) {
+         * if (initialCapacity > 0) {
+         * this.elementData = new Object[initialCapacity];
+         * } else if (initialCapacity == 0) {
+         * this.elementData = EMPTY_ELEMENTDATA;
+         * } else {
+         *  throw new IllegalArgumentException("Illegal Capacity: "+
+         *  initialCapacity);
+           }
+         }
+         */
+        Integer length=20;
+        list1= new ArrayList<>(length);
         list1.add("sxf");
         list1.add("小王");
         list1.add("小李");
